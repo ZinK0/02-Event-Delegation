@@ -1,5 +1,5 @@
-var shoppingFormEl = $('#shopping-form');
-var shoppingListEl = $('#shopping-list');
+var shoppingFormEl = $("#shopping-form");
+var shoppingListEl = $("#shopping-list");
 
 function handleFormSubmit(event) {
   event.preventDefault();
@@ -7,7 +7,7 @@ function handleFormSubmit(event) {
   var shoppingItem = $('input[name="shopping-input"]').val();
 
   if (!shoppingItem) {
-    console.log('No shopping item filled out in form!');
+    console.log("No shopping item filled out in form!");
     return;
   }
 
@@ -25,11 +25,18 @@ function handleFormSubmit(event) {
   shoppingListEl.append(shoppingListItemEl);
 
   // clear the form input element
-  $('input[name="shopping-input"]').val('');
+  $('input[name="shopping-input"]').val("");
 }
 
 // TODO: Create a function to handle removing a list item when `.delete-item-btn` is clicked
+function removeItem(event) {
+  let clickedBtn = $(event.target);
+  clickedBtn.parent("li").remove();
+
+  // if you don't pass event.target to jQuery you can use this code
+  // clickedBtn.parentElement.remove();
+}
 
 // TODO: Use event delegation and add an event listener to `shoppingListEl` to listen for a click event on any element with a class of `.delete-item-btn` and execute the function created above
-
-shoppingFormEl.on('submit', handleFormSubmit);
+shoppingListEl.on("click", ".delete-item-btn", removeItem);
+shoppingFormEl.on("submit", handleFormSubmit);
